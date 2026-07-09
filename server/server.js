@@ -4,13 +4,15 @@ const sequelize = require("./config/postgres");
 const User = require("./models/postgres/User");
 const authRoutes = require("./routes/authRoutes");
 const authMiddleware = require("./middleware/authMiddleware");
-
+const Expense = require("./models/postgres/Expense");
+const expenseRoutes = require("./routes/expenseRoutes");
 dotenv.config();
 
 
 const app = express();
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/expenses", expenseRoutes);
 const PORT = process.env.PORT||5000;
 
 app.get("/",(req,res)=>{
@@ -21,21 +23,23 @@ app.get("/profile",authMiddleware,(req,res)=>{
         message : "welcome to the profile"
     })
 })
-sequelize 
-.authenticate()
-.then(async()=>{
-    
-     console.log("✅ Connected to PostgreSQL");
+sequelize.authenticate()
+.then(async () => {
+
+    console.log("Connected to PostgreSQL");
 
     await sequelize.sync();
 
-    console.log("✅ Tables synchronized");
-app.listen(PORT,()=>{
-    console.log(`server is running on http://localhost:${PORT}`);
-    
-});
+    console.log("Database Synced");
+
+    app.listen(PORT, () => {
+        console.log(`Server running on http://localhost:${PORT}`);
+    });
+
 })
- .catch((err) => {
+
+     .catch((err) => {
     console.error("❌ PostgreSQL Connection Failed");
     console.error(err.message);
-  })
+});
+ 
