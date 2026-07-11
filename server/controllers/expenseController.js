@@ -1,8 +1,28 @@
 const Expense = require("../models/postgres/Expense");
+const { Op } = require("sequelize");
 
 const addExpense = async (req, res) => {
   try {
     const { title, amount, category, type, date } = req.body;
+      // Validation
+    if (!title || !amount || !category || !type || !date) {
+      return res.status(400).json({
+        message: "All fields are required",
+      });
+    }
+
+    if (amount <= 0) {
+      return res.status(400).json({
+        message: "Amount must be greater than 0",
+      });
+    }
+
+    if (type !== "Income" && type !== "Expense") {
+      return res.status(400).json({
+        message: "Type must be Income or Expense",
+      });
+    }
+
 
     const expense = await Expense.create({
       title,
@@ -26,13 +46,50 @@ const addExpense = async (req, res) => {
 };
 const getExpenses = async (req, res) => {
   try {
-    const expenses = await Expense.findAll({
-      where: {
-        userId: req.user.id,
-      },
+    const { search , category , sort ,page = 1, limit = 5 } = req.query;
+
+
+    const whereCondition = {
+      userId: req.user.id,
+    };
+
+    if (search) {
+      whereCondition.title = {
+        [Op.iLike]: `%${search}%`,
+      };
+    }
+    if (category) {
+  whereCondition.category = category;
+}
+let orderCondition = [["createdAt", "DESC"]];
+
+if (sort === "oldest") {
+  orderCondition = [["createdAt", "ASC"]];
+}
+
+if (sort === "highest") {
+  orderCondition = [["amount", "DESC"]];
+}
+
+if (sort === "lowest") {
+  orderCondition = [["amount", "ASC"]];
+}
+const offset = (page - 1) * limit;
+
+    const expenses = await Expense.findAndCountAll({
+      where: whereCondition,
+      order: orderCondition,
+      limit: Number(limit),
+    offset: Number(offset),
+
     });
 
-    res.status(200).json(expenses);
+res.status(200).json({
+  totalExpenses: expenses.count,
+  currentPage: Number(page),
+  totalPages: Math.ceil(expenses.count / limit),
+  expenses: expenses.rows,
+});
   } catch (error) {
     res.status(500).json({
       message: error.message,
