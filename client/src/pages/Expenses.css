@@ -1,0 +1,94 @@
+.expense-layout{
+    display:flex;
+}
+
+.expense-page{
+    flex:1;
+    padding:30px;
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+}
+
+th,td{
+    border-bottom:1px solid #ddd;
+    padding:14px;
+    text-align:left;
+}
+
+th{
+    background:#2563eb;
+    color:white;
+}
+.expense-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.add-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:12px 20px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+.modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:400px;
+}
+
+.modal form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.modal input,
+.modal select{
+    padding:12px;
+}
+
+.modal-buttons{
+    display:flex;
+    justify-content:space-between;
+}
+.delete-btn{
+    margin-left:10px;
+    background:red;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+.edit-btn{
+    background:#2563eb;
+    color:white;
+    border:none;
+    padding:8px 12px;
+    border-radius:5px;
+    cursor:pointer;
+}

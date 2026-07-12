@@ -1,0 +1,16 @@
+.sidebar{
+    width:220px;
+    min-height:calc(100vh - 70px);
+    background:#1e293b;
+    display:flex;
+    flex-direction:column;
+}
+
+.sidebar a{
+    color:white;
+    padding:18px;
+}
+
+.sidebar a.active{
+    background:#2563eb;
+}
