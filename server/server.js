@@ -7,11 +7,13 @@ const authMiddleware = require("./middleware/authMiddleware");
 const Expense = require("./models/postgres/Expense");
 const expenseRoutes = require("./routes/expenseRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
+const cors = require("cors");
 dotenv.config();
 
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/dashboard", dashboardRoutes);
