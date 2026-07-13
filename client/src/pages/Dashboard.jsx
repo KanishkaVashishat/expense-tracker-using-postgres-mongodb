@@ -3,6 +3,10 @@ import API from "../services/api";
 import "./Dashboard.css";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
+import SummaryCards from "../components/SummaryCards";
+import DashboardCharts from "../components/DashboardCharts";
+import RecentTransactions from "../components/RecentTransactions";
+
 
 function Dashboard() {
   const [dashboard, setDashboard] = useState({
@@ -39,64 +43,15 @@ function Dashboard() {
 
         <h1>Expense Tracker Dashboard</h1>
 
-        <div className="cards">
+        <SummaryCards dashboardData={dashboard} />
+        <DashboardCharts dashboardData={dashboard} />
 
-          <div className="card income">
-            <h2>Total Income</h2>
-            <h3>₹ {dashboard.totalIncome}</h3>
-          </div>
 
-          <div className="card expense">
-            <h2>Total Expense</h2>
-            <h3>₹ {dashboard.totalExpense}</h3>
-          </div>
-
-          <div className="card balance">
-            <h2>Balance</h2>
-            <h3>₹ {dashboard.balance}</h3>
-          </div>
-
-          <div className="card transactions">
-            <h2>Transactions</h2>
-            <h3>{dashboard.totalTransactions}</h3>
-          </div>
-
-        </div>
-
-        <div className="recent">
-
-          <h2>Recent Transactions</h2>
-
-          <table>
-
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Category</th>
-                <th>Amount</th>
-                <th>Type</th>
-              </tr>
-            </thead>
-
-            <tbody>
-
-              {dashboard.expenses.map((expense) => (
-                <tr key={expense.id}>
-                  <td>{expense.title}</td>
-                  <td>{expense.category}</td>
-                  <td>₹ {expense.amount}</td>
-                  <td>{expense.type}</td>
-                </tr>
-              ))}
-
-            </tbody>
-
-          </table>
-
-        </div>
+        <RecentTransactions expenses={dashboard.expenses} />
 
       </div>
-    </div>
+      </div>
+    
   </>
 );
 
