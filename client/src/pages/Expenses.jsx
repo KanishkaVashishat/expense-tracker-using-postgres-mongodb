@@ -8,6 +8,11 @@ function Expenses() {
   const [expenses, setExpenses] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingExpense, setEditingExpense] = useState(null);
+  const [search, setSearch] = useState("");
+  const [category, setCategory] = useState("");
+  const [sort, setSort] = useState("latest");
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
 const [formData, setFormData] = useState({
   title: "",
@@ -19,12 +24,20 @@ const [formData, setFormData] = useState({
 
   useEffect(() => {
     fetchExpenses();
-  }, []);
+  }, [search, category, sort, page]);
+
+  useEffect(() => {
+    setPage(1);
+}, [search, category, sort]);
 
   const fetchExpenses = async () => {
     try {
-      const res = await API.get("/expenses");
+const res = await API.get(
+  `/expenses?search=${search}&category=${category}&sort=${sort}&page=${page}`
+);
 
+setExpenses(res.data.expenses);
+setTotalPages(res.data.totalPages);
       console.log("Expenses API Response:", res.data);
 
       if (Array.isArray(res.data)) {
@@ -132,7 +145,47 @@ const handleDelete = async (id) => {
     + Add Expense
   </button>
 </div>
+<div className="search-box">
 
+    <input
+        type="text"
+        placeholder="Search expenses..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+    />
+
+</div>
+<div className="filters">
+
+  <input
+    type="text"
+    placeholder="Search..."
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
+  <select
+    value={category}
+    onChange={(e) => setCategory(e.target.value)}
+  >
+    <option value="">All Categories</option>
+    <option value="Food">Food</option>
+    <option value="Transport">Transport</option>
+    <option value="Shopping">Shopping</option>
+    <option value="Salary">Salary</option>
+    <option value="Entertainment">Entertainment</option>
+  </select>
+  <select
+    value={sort}
+    onChange={(e) => setSort(e.target.value)}
+>
+    <option value="latest">Latest</option>
+    <option value="oldest">Oldest</option>
+    <option value="highest">Highest Amount</option>
+    <option value="lowest">Lowest Amount</option>
+</select>
+
+</div>
           <table>
             <thead>
               <tr>
@@ -155,6 +208,8 @@ const handleDelete = async (id) => {
                     <td>{expense.type}</td>
                     <td>{expense.date?.slice(0, 10)}</td>
                    <td>
+
+                    
   <button
     className="edit-btn"
     onClick={() => handleEdit(expense)}
@@ -180,6 +235,27 @@ const handleDelete = async (id) => {
               )}
             </tbody>
           </table>
+          <div className="pagination">
+
+    <button
+        disabled={page === 1}
+        onClick={() => setPage(page - 1)}
+    >
+        Previous
+    </button>
+
+    <span>
+        Page {page} of {totalPages}
+    </span>
+
+    <button
+        disabled={page === totalPages}
+        onClick={() => setPage(page + 1)}
+    >
+        Next
+    </button>
+
+</div>
         </div>
       </div>
       {showModal && (
