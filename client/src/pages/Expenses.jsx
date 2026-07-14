@@ -3,6 +3,7 @@ import API from "../services/api";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
 import "./Expenses.css";
+import {toast} from "react-toastify";
 
 function Expenses() {
   const [expenses, setExpenses] = useState([]);
@@ -67,7 +68,7 @@ if (editingExpense) {
 } else {
   await API.post("/expenses", formData);
 }
-    alert("Expense Added");
+    toast.success("Expense Added Successfully");
 
     setShowModal(false);
     setEditingExpense(null);
@@ -113,7 +114,7 @@ const handleDelete = async (id) => {
 
     await API.delete(`/expenses/${id}`);
 
-    alert("Expense Deleted");
+    toast.success("Expense Deleted Successfully");
 
     fetchExpenses();
 
@@ -214,14 +215,14 @@ const handleDelete = async (id) => {
     className="edit-btn"
     onClick={() => handleEdit(expense)}
   >
-    Edit
+    ✏️Edit
   </button>
 
   <button
     className="delete-btn"
     onClick={() => handleDelete(expense.id)}
   >
-    Delete
+    Delete🗑️
   </button>
 </td>
                   </tr>

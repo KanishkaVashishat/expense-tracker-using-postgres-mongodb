@@ -48,12 +48,7 @@ function DashboardCharts({ dashboardData }) {
   {/* Pie Chart */}
 
   <div
-    style={{
-      background: "white",
-      padding: "20px",
-      borderRadius: "12px",
-    }}
-  >
+    className="charts-container">
     <h2>Income vs Expense</h2>
 
     <div

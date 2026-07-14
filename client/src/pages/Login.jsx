@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import API from "../services/api";
 import { useAuth } from "../context/AuthContext";
 import "./Login.css";
+import {toast} from "react-toastify";
 
 function Login() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ function Login() {
 
       login(res.data.token);
 
-      alert("Login Successful");
+      toast.success("Login Successful");
 
       navigate("/dashboard");
     } catch (err) {

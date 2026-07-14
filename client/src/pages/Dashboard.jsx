@@ -16,6 +16,7 @@ function Dashboard() {
     totalTransactions: 0,
     expenses: [],
   });
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetchDashboard();
@@ -23,12 +24,24 @@ function Dashboard() {
 
   const fetchDashboard = async () => {
     try {
+      setLoading(true);
       const res = await API.get("/dashboard");
       setDashboard(res.data);
     } catch (error) {
       console.log(error);
+    }finally{
+      setLoading(false);
     }
   };
+
+  if(loading){
+    return(<>
+    <Navbar />
+    <div style={{padding: "40px", textAlign: "center"}}>
+      <h2>Loading Dashboard...</h2>
+    </div>
+    </>);
+  }
 
   return (
   <>
