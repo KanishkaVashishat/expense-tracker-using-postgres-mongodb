@@ -139,3 +139,7 @@ th{
     background:#bdbdbd;
     cursor:not-allowed;
 }
+tbody tr:hover{
+    background: #f5f7ff;
+    transition: 3s;
+}
