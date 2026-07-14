@@ -33,7 +33,7 @@ function DashboardCharts({ dashboardData }) {
   { month: "Jun", expense: 4000 },
 ];
 
-  const COLORS = ["#16a34a", "#dc2626"];
+  const COLORS = ["#5FA893", "#C1666B"];
 
   return (
     <div
@@ -57,12 +57,12 @@ function DashboardCharts({ dashboardData }) {
         justifyContent: "center",
       }}
     >
-      <PieChart width={400} height={300}>
+      <PieChart width={400} height={230}>
         <Pie
           data={data}
           cx="50%"
           cy="50%"
-          outerRadius={100}
+          outerRadius={70}
           dataKey="value"
           label={({ name, percent }) =>
             `${name} ${(percent * 100).toFixed(0)}%`
@@ -84,20 +84,20 @@ function DashboardCharts({ dashboardData }) {
 
   <div
     style={{
-      background: "white",
-      padding: "20px",
+      background: "#0F1E1B",
+      padding: "10px",
       borderRadius: "12px",
     }}
   >
-    <h2>Monthly Expenses</h2>
+    <h2 >Monthly Expenses</h2>
 
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={200}>
       <BarChart data={monthlyData}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="month" />
         <YAxis />
         <Tooltip />
-        <Bar dataKey="expense" fill="#2563eb" />
+        <Bar dataKey="expense" fill="#5FA893 " />
       </BarChart>
     </ResponsiveContainer>
 

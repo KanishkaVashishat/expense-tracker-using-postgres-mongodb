@@ -1,18 +1,25 @@
 .navbar{
-    height:70px;
-    background:#2563eb;
-    color:white;
+    height:56px;
+    background:#16302B;
+    color:#F3EFE6;
+    border-bottom:1px solid #2A473F;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 40px;
+    padding:0 32px;
 }
 
 .navbar button{
-    background:white;
-    color:#2563eb;
-    border:none;
+    background:transparent;
+    color:#F3EFE6;
+    border:1px solid #2A473F;
     padding:10px 18px;
     border-radius:6px;
-    font-weight:bold;
+    font-weight:500;
+}
+
+.navbar button:hover{
+    background:#1D3B34;
+    border-color:#D4A857;
+    color:#D4A857;
 }

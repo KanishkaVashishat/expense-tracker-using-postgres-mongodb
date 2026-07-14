@@ -1,16 +1,22 @@
 .sidebar{
     width:220px;
     min-height:calc(100vh - 70px);
-    background:#1e293b;
+    background:#16302B;
+    border-right:1px solid #2A473F;
     display:flex;
     flex-direction:column;
 }
 
 .sidebar a{
-    color:white;
+    color:#93AAA2;
     padding:18px;
+    font-size:14px;
+    text-decoration:none;
+    border-left:3px solid transparent;
 }
 
 .sidebar a.active{
-    background:#2563eb;
+    background:#1D3B34;
+    color:#F3EFE6;
+    border-left:3px solid #D4A857;
 }
